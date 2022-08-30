@@ -7,14 +7,13 @@ class Subscriptor {
     constructor(obj) {
         this.nombre = obj.nombre;
         this.clave = obj.clave;
-        this.clave = obj.clave2;
+        this.clave2 = obj.clave2;
         this.email = obj.email;
     }
 }
 
 
 let ArrayDeSubscriptores = [];
-
 
 // VerificaryCargar();
 
@@ -34,7 +33,7 @@ botonRegistrar.onclick = () => {
     verificarIngresos()
 
     function verificarIngresos() {
-        // verifica nombre
+        // verifica nombre  que no este vacio o ya en el array.
         if (nombreIngresado.value === "") {
             setErrorFor(nombreIngresado, "debe incluir un usuario");
 
@@ -77,6 +76,8 @@ botonRegistrar.onclick = () => {
                 mensaje.textContent = "debe ingresar una contraseña";
             }
         }
+        
+
     }
     // verificar correo
     function verificarEmail() {
@@ -89,6 +90,7 @@ botonRegistrar.onclick = () => {
             mensaje.textContent = "debe ingresar un correo electronico";
         }
     }
+
 
 
 
