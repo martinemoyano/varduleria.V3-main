@@ -15,10 +15,12 @@ class Subscriptor {
 
 let ArrayDeSubscriptores = [];
 
+
+
+
+
+
 // VerificaryCargar();
-
-
-
 let botonRegistrar = document.getElementById("btnRegistrar")
 botonRegistrar.onclick = () => {
 
@@ -26,7 +28,6 @@ botonRegistrar.onclick = () => {
     const claveIngresada = document.getElementById('txtClaveUsuario').value;
     const claveIngresada2 = document.getElementById('txtClaveUsuario2').value;
     const emailIngresado = document.getElementById('txtEmailUsuario').value;
-
 
 
     /* validaciones */
@@ -116,6 +117,8 @@ botonRegistrar.onclick = () => {
 function Guardar() {
     localStorage.setItem("ListadoSubscriptores", JSON.stringify(ArrayDeSubscriptores));
     VerificaryCargar()
+     
+Swal.fire('GRACIAS POR REGISTRARTE')
 }
 
 

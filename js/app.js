@@ -53,6 +53,7 @@ arrayProductosOBJ.push(new producto(objeto));
 mostrarProductos(arrayProductosOBJ)
 
 function mostrarProductos(){
+    // contenedorProductos.innerHTML = ''
 arrayProductosOBJ.forEach(item=>{
     let div = document.createElement('div')
     div.className = 'item'
@@ -66,6 +67,7 @@ arrayProductosOBJ.forEach(item=>{
                    </div>`
 
 contenedorProductos.appendChild(div);
+
 let btnAgregar = document.getElementById(`botonAgregar${item.id}`)
 btnAgregar.addEventListener('click',()=>{
     agregarAlCarrito(item.id);
@@ -80,10 +82,7 @@ if (existe){
     existe.cantidad = existe.cantidad +1
     document.getElementById(`cant${existe.id}`).innerHTML = `<p id = "cant${existe.id}">cantidad:${existe.cantidad}</p>`
     actualizarCarrito()
-    
-    // guarda en localStorage
-    // guardarLocal("carrito", JSON.stringify(existe));
-        // localStorage.setItem("articulo", JSON.stringify(existe));
+    console.log(`el producto ${existe.id} existe `)
     
 }else{
         let productoAgregar = arrayProductosOBJ.find(item=> item.id == id)
@@ -91,7 +90,7 @@ if (existe){
         carritoCompras.push(productoAgregar);
         mostrarCarrito(productoAgregar)
         actualizarCarrito()
-       
+       console.log(`se agrega el producto ${productoAgregar}`)
          // guarda en localStorage
         guardarLocal("carrito", JSON.stringify(carritoCompras));
 }
@@ -108,8 +107,10 @@ if (existe){
 
 function mostrarCarrito(productoAgregar) {
     let div = document.createElement('div')
-    div.className="productoEnCarrito";
-    div.innerHTML += `<p>${productoAgregar.nombre}</p>
+     div.setAttribute('class','productoEnCarrito')
+    // div.className="contenedor-productos";
+    div.innerHTML = ` 
+                      <p>${productoAgregar.nombre}</p>
                       <p>Precio: $${productoAgregar.precio}</p>
                       <p id="cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>
                       <button class="boton-eliminar btn btn-primary" id="eliminar${productoAgregar.id}">
@@ -121,12 +122,14 @@ function mostrarCarrito(productoAgregar) {
    btnEliminar.addEventListener('click',()=>{
        if(productoAgregar.cantidad == 1){
            carritoCompras = carritoCompras.filter(item=>item.id !== productoAgregar.id)
-           btnEliminar.parentElement.remove()
+           btnEliminar.parentElement.remove() 
            actualizarCarrito()
+           console.log(`se elimina el producto ${productoAgregar} cuando habia solo 1`)
        }else{
         productoAgregar.cantidad = productoAgregar.cantidad - 1
         document.getElementById(`cant${productoAgregar.id}`).innerHTML = `<p id = "cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>`
         actualizarCarrito()
+        console.log(`se elimina el producto ${productoAgregar} cuando habia mas de 1`)
 
        }
     //    carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
@@ -155,10 +158,11 @@ function mostrarCarrito(productoAgregar) {
 function  actualizarCarrito (){
     contadorCarrito.innerText= carritoCompras.reduce((acc,el)=> acc + el.cantidad, 0)            
     precioTotal.innerText = carritoCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad), 0)
+    console.log(carritoCompras)
  }    
 
-// console.log(contenedorCarrito)
-// console.log(carritoCompras)
+
+console.log(carritoCompras)
 function recuperar(){
     let recuperarLista = JSON.parse(localStorage.getItem("carrito"));
     if (recuperarLista){
@@ -166,6 +170,7 @@ function recuperar(){
             mostrarCarrito(elemento);
             carritoCompras.push(elemento)
             actualizarCarrito()
+            console.log(contenedorCarrito)
         }
     }
 }
