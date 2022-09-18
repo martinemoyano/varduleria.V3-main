@@ -16,10 +16,6 @@ class Subscriptor {
 let ArrayDeSubscriptores = [];
 
 
-
-
-
-
 // VerificaryCargar();
 let botonRegistrar = document.getElementById("btnRegistrar")
 botonRegistrar.onclick = () => {
@@ -100,7 +96,7 @@ botonRegistrar.onclick = () => {
     // fin validaciones
     function cargarUsuario() {
 
-        let objGenerico = {
+        const objGenerico = {
             nombre: nombreIngresado.value,
             clave: claveIngresada,
             email: emailIngresado,

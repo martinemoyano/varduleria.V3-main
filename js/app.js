@@ -125,11 +125,13 @@ function mostrarCarrito(productoAgregar) {
            btnEliminar.parentElement.remove() 
            actualizarCarrito()
            console.log(`se elimina el producto ${productoAgregar} cuando habia solo 1`)
+           guardarLocal("carrito", JSON.stringify(carritoCompras));
        }else{
         productoAgregar.cantidad = productoAgregar.cantidad - 1
         document.getElementById(`cant${productoAgregar.id}`).innerHTML = `<p id = "cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>`
         actualizarCarrito()
         console.log(`se elimina el producto ${productoAgregar} cuando habia mas de 1`)
+        guardarLocal("carrito", JSON.stringify(carritoCompras));
 
        }
     //    carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
@@ -175,3 +177,16 @@ function recuperar(){
     }
 }
 recuperar()
+
+
+function finalizar(){
+    console.log(carritoCompras);
+    Swal.fire('GRACIAS POR TU COMPRA')
+    carritoCompras = []
+    actualizarCarrito()
+    guardarLocal("carrito", JSON.stringify(carritoCompras));
+    }
+    
+
+
+
