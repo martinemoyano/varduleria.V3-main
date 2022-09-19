@@ -68,9 +68,11 @@ arrayProductosOBJ.forEach(item=>{
 
 contenedorProductos.appendChild(div);
 
+
 let btnAgregar = document.getElementById(`botonAgregar${item.id}`)
 btnAgregar.addEventListener('click',()=>{
     agregarAlCarrito(item.id);
+    guardarLocal("carrito", JSON.stringify(carritoCompras));
 })
 })
 }
