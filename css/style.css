@@ -1,14 +1,13 @@
-
-
 .contenedor{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin-left: 2px;
 }
 
+.contenedorProd{
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .form{
     width: 400px;
