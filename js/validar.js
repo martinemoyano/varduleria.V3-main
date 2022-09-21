@@ -1,4 +1,3 @@
-
 // var password = admin;
 // var response;
 
@@ -10,6 +9,6 @@
 // alert('bien')
 // }
 
-function validar(){
-    window.location='usuario.html'
+function validar() {
+    window.location = 'usuario.html'
 }

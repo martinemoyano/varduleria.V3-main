@@ -12,7 +12,7 @@ const precioTotal = document.getElementById('precio-total');
 
 const buscador = document.getElementById('search');
 
-const guardarLocal = (clave,valor) => (localStorage.setItem(clave,valor));
+const guardarLocal = (clave, valor) => (localStorage.setItem(clave, valor));
 
 // GUARDAR EL STOCK EN LOCALSTORAGE
 guardarLocal("listaProductos", JSON.stringify(stockProductos));
@@ -21,8 +21,8 @@ const almacenados = JSON.parse(localStorage.getItem("listaProductos"));
 const arrayProductosOBJ = [];
 
 
-class producto{
-    constructor(obj){
+class producto {
+    constructor(obj) {
         this.id = parseFloat(obj.id);
         this.tipo = obj.tipo;
         this.nombre = obj.nombre;
@@ -31,7 +31,7 @@ class producto{
     }
 }
 for (const objeto of almacenados)
-arrayProductosOBJ.push(new producto(objeto));
+    arrayProductosOBJ.push(new producto(objeto));
 
 // para inicializar el carrito de compras
 
@@ -52,12 +52,12 @@ arrayProductosOBJ.push(new producto(objeto));
 
 mostrarProductos(arrayProductosOBJ)
 
-function mostrarProductos(){
+function mostrarProductos() {
     // contenedorProductos.innerHTML = ''
-arrayProductosOBJ.forEach(item=>{
-    let div = document.createElement('div')
-    div.className = 'item'
-    div.innerHTML = ` <div class="card" style="width: 16rem;">
+    arrayProductosOBJ.forEach(item => {
+        let div = document.createElement('div')
+        div.className = 'item'
+        div.innerHTML = ` <div class="card" style="width: 16rem;">
                      <img src="${item.img}" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="nombreitem">${item.nombre}</h5>
@@ -66,88 +66,88 @@ arrayProductosOBJ.forEach(item=>{
                    </div>
                    </div>`
 
-contenedorProductos.appendChild(div);
+        contenedorProductos.appendChild(div);
 
 
-let btnAgregar = document.getElementById(`botonAgregar${item.id}`)
-btnAgregar.addEventListener('click',()=>{
-    agregarAlCarrito(item.id);
-    guardarLocal("carrito", JSON.stringify(carritoCompras));
-})
-})
+        let btnAgregar = document.getElementById(`botonAgregar${item.id}`)
+        btnAgregar.addEventListener('click', () => {
+            agregarAlCarrito(item.id);
+            guardarLocal("carrito", JSON.stringify(carritoCompras));
+        })
+    })
 }
 
 
 function agregarAlCarrito(id) {
-let existe = carritoCompras.find(producto => producto.id == id)
-if (existe){
-    existe.cantidad = existe.cantidad +1
-    document.getElementById(`cant${existe.id}`).innerHTML = `<p id = "cant${existe.id}">cantidad:${existe.cantidad}</p>`
-    actualizarCarrito()
-    console.log(`el producto ${existe.id} existe `)
-    
-}else{
-        let productoAgregar = arrayProductosOBJ.find(item=> item.id == id)
+    let existe = carritoCompras.find(producto => producto.id == id)
+    if (existe) {
+        existe.cantidad = existe.cantidad + 1
+        document.getElementById(`cant${existe.id}`).innerHTML = `<p id = "cant${existe.id}">cantidad:${existe.cantidad}</p>`
+        actualizarCarrito()
+        console.log(`el producto ${existe.id} existe `)
+
+    } else {
+        let productoAgregar = arrayProductosOBJ.find(item => item.id == id)
         productoAgregar.cantidad = 1
         carritoCompras.push(productoAgregar);
         mostrarCarrito(productoAgregar)
         actualizarCarrito()
-       console.log(`se agrega el producto ${productoAgregar}`)
-         // guarda en localStorage
+        console.log(`se agrega el producto ${productoAgregar}`)
+        // guarda en localStorage
         guardarLocal("carrito", JSON.stringify(carritoCompras));
+    }
 }
-}      
-       
-       
-        //  localStorage.setItem("articulo", JSON.stringify(productoAgregar));
-         
-        
-        //  const guardarLocalStorage = ("articulo", productoAgregar)=>{
-        // localStorage.setItem("articulo",JSON.stringify(productoAgregar));
- 
+
+
+//  localStorage.setItem("articulo", JSON.stringify(productoAgregar));
+
+
+//  const guardarLocalStorage = ("articulo", productoAgregar)=>{
+// localStorage.setItem("articulo",JSON.stringify(productoAgregar));
+
 
 
 function mostrarCarrito(productoAgregar) {
     let div = document.createElement('div')
-     div.setAttribute('class','productoEnCarrito')
+    div.setAttribute('class', 'productoEnCarrito')
     // div.className="contenedor-productos";
     div.innerHTML = ` 
                       <p>${productoAgregar.nombre}</p>
                       <p>Precio: $${productoAgregar.precio}</p>
                       <p id="cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>
-                      <button class="boton-eliminar btn btn-primary" id="eliminar${productoAgregar.id}">
+                      <button class="boton-eliminar btn btn-danger" id="eliminar${productoAgregar.id}">
                      borrar</i>
                       </button>`
     contenedorCarrito.appendChild(div)
 
-   let btnEliminar = document.getElementById(`eliminar${productoAgregar.id}`)
-   btnEliminar.addEventListener('click',()=>{
-       if(productoAgregar.cantidad == 1){
-           carritoCompras = carritoCompras.filter(item=>item.id !== productoAgregar.id)
-           btnEliminar.parentElement.remove() 
-           actualizarCarrito()
-           console.log(`se elimina el producto ${productoAgregar} cuando habia solo 1`)
-           guardarLocal("carrito", JSON.stringify(carritoCompras));
-       }else{
-        productoAgregar.cantidad = productoAgregar.cantidad - 1
-        document.getElementById(`cant${productoAgregar.id}`).innerHTML = `<p id = "cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>`
-        actualizarCarrito()
-        console.log(`se elimina el producto ${productoAgregar} cuando habia mas de 1`)
-        guardarLocal("carrito", JSON.stringify(carritoCompras));
+    let btnEliminar = document.getElementById(`eliminar${productoAgregar.id}`)
+    btnEliminar.addEventListener('click', () => {
+        if (productoAgregar.cantidad == 1) {
+            carritoCompras = carritoCompras.filter(item => item.id !== productoAgregar.id)
+            btnEliminar.parentElement.remove()
+            actualizarCarrito()
+            console.log(`se elimina el producto ${productoAgregar} cuando habia solo 1`)
+            guardarLocal("carrito", JSON.stringify(carritoCompras));
+        } else {
+            productoAgregar.cantidad = productoAgregar.cantidad - 1
+            document.getElementById(`cant${productoAgregar.id}`).innerHTML = `<p id = "cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>`
+            actualizarCarrito()
+            console.log(`se elimina el producto ${productoAgregar} cuando habia mas de 1`)
+            guardarLocal("carrito", JSON.stringify(carritoCompras));
 
-       }
-    //    carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
-    //    btnEliminar.parentElement.remove(); 
-    //    actualizarCarrito()
-   })
+        }
+        //    carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
+        //    btnEliminar.parentElement.remove(); 
+        //    actualizarCarrito()
+    })
 }
 
 
-    // function actualizarCarrito(){
-    //     contadorCarrito.innerText = carritoCompras.length
-    //     precioTotal.innerText = carritoCompras.reduce((acc,el)=>acc + (el.precio * el.cantidad),0)
-    // }
-    
+// function actualizarCarrito(){
+//     contadorCarrito.innerText = carritoCompras.length
+//     precioTotal.innerText = carritoCompras.reduce((acc,el)=>acc + (el.precio * el.cantidad),0)
+// }
+
 
 // function eliminar()
 // let btnEliminar = document.getElementsByClassName('boton-eliminar')
@@ -159,18 +159,19 @@ function mostrarCarrito(productoAgregar) {
 //     })
 // }
 
-function  actualizarCarrito (){
-    contadorCarrito.innerText= carritoCompras.reduce((acc,el)=> acc + el.cantidad, 0)            
-    precioTotal.innerText = carritoCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad), 0)
+function actualizarCarrito() {
+    contadorCarrito.innerText = carritoCompras.reduce((acc, el) => acc + el.cantidad, 0)
+    precioTotal.innerText = carritoCompras.reduce((acc, el) => acc + (el.precio * el.cantidad), 0)
     console.log(carritoCompras)
- }    
+}
 
 
 console.log(carritoCompras)
-function recuperar(){
+
+function recuperar() {
     let recuperarLista = JSON.parse(localStorage.getItem("carrito"));
-    if (recuperarLista){
-        for(const elemento of recuperarLista){
+    if (recuperarLista) {
+        for (const elemento of recuperarLista) {
             mostrarCarrito(elemento);
             carritoCompras.push(elemento)
             actualizarCarrito()
@@ -181,14 +182,10 @@ function recuperar(){
 recuperar()
 
 
-function finalizar(){
+function finalizar() {
     console.log(carritoCompras);
     Swal.fire('GRACIAS POR TU COMPRA')
     carritoCompras = []
     actualizarCarrito()
     guardarLocal("carrito", JSON.stringify(carritoCompras));
-    }
-    
-
-
-
+}

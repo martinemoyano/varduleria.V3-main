@@ -73,7 +73,7 @@ botonRegistrar.onclick = () => {
                 mensaje.textContent = "debe ingresar una contraseña";
             }
         }
-        
+
 
     }
     // verificar correo
@@ -113,8 +113,8 @@ botonRegistrar.onclick = () => {
 function Guardar() {
     localStorage.setItem("ListadoSubscriptores", JSON.stringify(ArrayDeSubscriptores));
     VerificaryCargar()
-     
-Swal.fire('GRACIAS POR REGISTRARTE')
+
+    Swal.fire('GRACIAS POR REGISTRARTE')
 }
 
 
