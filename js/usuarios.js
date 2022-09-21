@@ -8,7 +8,7 @@ const mostrarData = (data) => {
     console.log(data)
     let body = ""
     for (var i = 0; i < data.length; i++) {
-        body += `<tr><td>${data[i].id}</td><td>${data[i].nombre}</td><td>${data[i].email}</td></tr>`
+        body += `<tr><td>${data[i].id}</td><td>${data[i].name}</td><td>${data[i].email}</td></tr>`
     }
     document.getElementById('data').innerHTML = body
     //console.log(body)
